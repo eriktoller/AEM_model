@@ -4,7 +4,7 @@ An AEM model program with built-in functions for: head specified boundaries, hea
 **Author: Erik Toller**  
 Current version: 0.1 (2019-08-21)
 
-All data inupt and operations are done in the file currently named: test.py
+All data inupt and operations are done in the file currently named: `run_aem.py`
 
 ## Definition of variables
 **Reference point and aquifer properties**  
