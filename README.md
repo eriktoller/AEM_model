@@ -17,17 +17,17 @@ All data inupt and operations are done in the file currently named: test.py
 **Well data**  
 `zw` list of complex coordinates for wells  
 `rw` list of radii of wells  
-`nw` number of wells  
 `fi_nw` hydraulic head at wells  
+`nw` number of wells  
 
 **Lake data**  
-`M` number of head specified boundary elements  
-`nu` list of &nu; for ellipse  
 `z1` list of complex coordinates for ellipse locii start  
 `z2` list of complex coordinates for ellipse locii end  
+`nu` list of &nu; for ellipse  
 `m` list of number of coefficient for head specified boundary elements  
 `N` number of integration point for Cauchy integral  
 `fi_M` hydraulic head at head specified boundary elements  
+`M` number of head specified boundary elements  
 
 **Plot properties**  
 `Nx` grid plot size in x-direction  
