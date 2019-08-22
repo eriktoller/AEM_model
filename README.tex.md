@@ -15,21 +15,21 @@ This groundwater model is constructed out of mutiple complex discharge fucntions
 Function named as `Omega_uni(z, W)` in `functions.py`
 
 #### Calculations
-\begin{equation}
-  \Omega = -Wz$
- \end{equation}
+\begin{equation*}
+  \underset{\Omega}{uni} = -Wz$
+ \end{equation*}
 
 ### Omega Well
 Function named as `Omega_well(z, zw, rw, Q)` in `functions.py`
 
 #### Calculations
 if $|z - z_w| < r_w$
-\begin{equation}
-  \Omega = \text{NaN}
- \end{equation}  
- \begin{equation}
-  \Omega = \frac{Q}{2\pi}\log(z - z_w)
- \end{equation}
+\begin{equation*}
+  \underset{\Omega}{well} = \text{NaN}
+ \end{equation*}  
+ \begin{equation*}
+  \underset{\Omega}{well} = \frac{Q}{2\pi}\log(z - z_w)
+ \end{equation*}
 
 ## Definition of variables
 **Reference point and aquifer properties**  
