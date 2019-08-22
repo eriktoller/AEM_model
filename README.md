@@ -15,15 +15,16 @@ This groundwater model is constructed out of mutiple complex discharge fucntions
 Function named as `Omega_uni(z, W)` in `functions.py`
 
 #### Calculations
-<p align="center"><img src="/tex/2099f28d0ed0bb4858b9e66a88f733b8.svg?invert_in_darkmode&sanitize=true" align=middle width=85.81931325pt height=21.83559675pt/></p>
+<img src="/tex/08c04de91cdce60f5e68be561db33bd5.svg?invert_in_darkmode&sanitize=true" align=middle width=81.42799334999998pt height=22.465723500000017pt/>
 
 ### Omega Well
 Function named as `Omega_well(z, zw, rw, Q)` in `functions.py`
 
 #### Calculations
-if <img src="/tex/074746e0e5a47c594ef363aed64574c6.svg?invert_in_darkmode&sanitize=true" align=middle width=95.03039699999998pt height=24.65753399999998pt/>
-<p align="center"><img src="/tex/a7f43e2a27c1965851c158705d2e2102.svg?invert_in_darkmode&sanitize=true" align=middle width=85.116075pt height=22.0182633pt/></p>  
- <p align="center"><img src="/tex/5610a87adca69423b0f2ac3de333cc70.svg?invert_in_darkmode&sanitize=true" align=middle width=157.8664296pt height=33.62942055pt/></p>
+if <img src="/tex/074746e0e5a47c594ef363aed64574c6.svg?invert_in_darkmode&sanitize=true" align=middle width=95.03039699999998pt height=24.65753399999998pt/>  
+<img src="/tex/edb2f5dceb7043b2f9f302310ab517f5.svg?invert_in_darkmode&sanitize=true" align=middle width=79.29816344999999pt height=22.465723500000017pt/>  
+else  
+<img src="/tex/0e874dbb95e888192231b27293774abc.svg?invert_in_darkmode&sanitize=true" align=middle width=148.52173049999996pt height=30.392597399999985pt/>
 
 ## Definition of variables
 **Reference point and aquifer properties**  
