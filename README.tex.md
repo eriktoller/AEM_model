@@ -11,6 +11,12 @@ This groundwater model is constructed out of mutiple complex discharge fucntions
 - `Omega_well`
 - `Omega_lake`
 
+### Omega Uniform Flow
+Function call as `Omega_uni(z, W)` in `functions.py`
+
+#### Calculations
+$x = y$
+
 ## Definition of variables
 **Reference point and aquifer properties**  
 `H` aquifer thickness  
