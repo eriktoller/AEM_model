@@ -1,10 +1,15 @@
-# AEM_model
+# AEM model
 An AEM model program with built-in functions for: head specified boundaries, head specified wells and uniform flow.
 
 **Author: Erik Toller**  
-Current version: 0.1 (2019-08-21)
+Current version: 0.1 (2019-08-21)  
+Master script: `run_aem.py`
 
-All data inupt and operations are done in the file currently named: `run_aem.py`
+## Functions
+This groundwater model is constructed out of mutiple complex discharge fucntions with which the solutions are super-positionable. In the current program the following functions are included:
+- `Omega_uni`
+- `Omega_well`
+- `Omega_lake`
 
 ## Definition of variables
 **Reference point and aquifer properties**  
