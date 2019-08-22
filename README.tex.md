@@ -22,9 +22,18 @@ Function named as `Omega_well(z, zw, rw, Q)` in `functions.py`
 
 #### Calculations
 if $|z - z_w| < r_w$  
+
 $\underset{well}{\Omega} = \text{NaN}$  
+
 else  
+
 $\underset{well}{\Omega} = \frac{Q}{2\pi}\log(z - z_w)$
+
+### Omega Lake
+Function named as `Omega_lake(chi, a, Q, chi_far, m)` in `functions.py`
+
+#### Calculations
+
 
 ## Definition of variables
 **Reference point and aquifer properties**  
