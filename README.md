@@ -33,7 +33,13 @@ else
 Function named as `Omega_lake(chi, a, Q, chi_far, m)` in `functions.py`
 
 #### Calculations
+if <img src="/tex/71acaaa86f32d6fbb06d7e20fc052bb8.svg?invert_in_darkmode&sanitize=true" align=middle width=50.707529399999984pt height=21.18721440000001pt/>  
 
+<img src="/tex/3d817b6781989b088a3dde0759b36703.svg?invert_in_darkmode&sanitize=true" align=middle width=79.65150599999998pt height=22.465723500000017pt/>  
+
+else  
+
+$\underset{lake}{\Omega} = \sum_1^m 
 
 ## Definition of variables
 **Reference point and aquifer properties**  
