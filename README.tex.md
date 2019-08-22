@@ -33,7 +33,13 @@ $\underset{well}{\Omega} = \frac{Q}{2\pi}\log(z - z_w)$
 Function named as `Omega_lake(chi, a, Q, chi_far, m)` in `functions.py`
 
 #### Calculations
+if $\chi\bar{\chi} < 1$  
 
+$\underset{lake}{\Omega} = \text{NaN}$  
+
+else  
+
+$\underset{lake}{\Omega} = \sum_1^m 
 
 ## Definition of variables
 **Reference point and aquifer properties**  
