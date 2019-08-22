@@ -39,7 +39,7 @@ if <img src="/tex/71acaaa86f32d6fbb06d7e20fc052bb8.svg?invert_in_darkmode&saniti
 
 else  
 
-$\underset{lake}{\Omega} = \sum_1^m 
+<img src="/tex/591ba78622551645e1d1bcdf6e0b2e4f.svg?invert_in_darkmode&sanitize=true" align=middle width=229.015512pt height=37.80850590000001pt/>
 
 ## Definition of variables
 **Reference point and aquifer properties**  
