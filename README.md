@@ -12,10 +12,18 @@ This groundwater model is constructed out of mutiple complex discharge fucntions
 - `Omega_lake`
 
 ### Omega Uniform Flow
-Function call as `Omega_uni(z, W)` in `functions.py`
+Function named as `Omega_uni(z, W)` in `functions.py`
 
 #### Calculations
-<img src="/tex/7defd50098be0a3d3e6d4bf5ca764b65.svg?invert_in_darkmode&sanitize=true" align=middle width=39.96184334999999pt height=14.15524440000002pt/>
+<p align="center"><img src="/tex/7a839bf98e8582d82d8cc11796a95730.svg?invert_in_darkmode&sanitize=true" align=middle width=386.51257754999995pt height=44.93149155pt/></p>
+
+### Omega Well
+Function named as `Omega_well(z, zw, rw, Q)` in `functions.py`
+
+#### Calculations
+if <img src="/tex/074746e0e5a47c594ef363aed64574c6.svg?invert_in_darkmode&sanitize=true" align=middle width=95.03039699999998pt height=24.65753399999998pt/>
+<p align="center"><img src="/tex/748a5590420105a1794ff9602423bba5.svg?invert_in_darkmode&sanitize=true" align=middle width=383.47027125pt height=16.438356pt/></p>  
+ <p align="center"><img src="/tex/61b8a90bc2acf2fd82ee80dced41468d.svg?invert_in_darkmode&sanitize=true" align=middle width=419.84545184999996pt height=33.62942055pt/></p>
 
 ## Definition of variables
 **Reference point and aquifer properties**  
