@@ -22,9 +22,18 @@ Function named as `Omega_well(z, zw, rw, Q)` in `functions.py`
 
 #### Calculations
 if <img src="/tex/074746e0e5a47c594ef363aed64574c6.svg?invert_in_darkmode&sanitize=true" align=middle width=95.03039699999998pt height=24.65753399999998pt/>  
+
 <img src="/tex/edb2f5dceb7043b2f9f302310ab517f5.svg?invert_in_darkmode&sanitize=true" align=middle width=79.29816344999999pt height=22.465723500000017pt/>  
+
 else  
+
 <img src="/tex/0e874dbb95e888192231b27293774abc.svg?invert_in_darkmode&sanitize=true" align=middle width=148.52173049999996pt height=30.392597399999985pt/>
+
+### Omega Lake
+Function named as `Omega_lake(chi, a, Q, chi_far, m)` in `functions.py`
+
+#### Calculations
+
 
 ## Definition of variables
 **Reference point and aquifer properties**  
