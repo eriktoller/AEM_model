@@ -27,7 +27,7 @@ Function named as `Phi_from_fi(fi, k, H)` in `functions.py`
 if $\phi < H$
 $$\Phi = \frac{1}{2}k\phi^2$$
 else
-$$\Phi = kH\phi - \frac{1}{2}kH^^2$$
+$$\Phi = kH\phi - \frac{1}{2}kH^2$$
 
 ### Head from Discharge Potential
 Function named as `fi_from_Phi(Phi, k, H)` in `functions.py`
