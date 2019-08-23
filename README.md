@@ -27,7 +27,7 @@ Function named as `Phi_from_fi(fi, k, H)` in `functions.py`
 if <img src="/tex/7fc633cc9139c1ed410c6aee5e4b1435.svg?invert_in_darkmode&sanitize=true" align=middle width=46.71216494999999pt height=22.831056599999986pt/>
 <p align="center"><img src="/tex/ab1e28cfe267702e0eeab32d0e2898ae.svg?invert_in_darkmode&sanitize=true" align=middle width=71.3766603pt height=32.990165999999995pt/></p>
 else
-<p align="center"><img src="/tex/ca130046a536fb47eec3d3dbbda7f1bc.svg?invert_in_darkmode&sanitize=true" align=middle width=131.86355985pt height=32.990165999999995pt/></p>
+<p align="center"><img src="/tex/8fddb38268281a4a50b62f40a4d18578.svg?invert_in_darkmode&sanitize=true" align=middle width=130.5431523pt height=32.990165999999995pt/></p>
 
 ### Head from Discharge Potential
 Function named as `fi_from_Phi(Phi, k, H)` in `functions.py`
