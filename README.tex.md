@@ -39,7 +39,7 @@ $\underset{lake}{\Omega} = \text{NaN}$
 
 else  
 
-$\underset{lake}{\Omega} = \Sum_2^n \frac{a_n}{\chi^{-n}} + \frac{Q}{2\pi}\log\left(\frac{\chi}{\chi_{far}}\right)$
+$$\underset{lake}{\Omega} = \Sum_2^n \frac{a_n}{\chi^{-n}} + \frac{Q}{2\pi}\log\left(\frac{\chi}{\chi_{far}}\right)$$
 
 ## Definition of variables
 **Reference point and aquifer properties**  
