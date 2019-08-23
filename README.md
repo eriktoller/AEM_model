@@ -64,9 +64,9 @@ Generates a matrix of each elemets far field condition <img src="/tex/983483b08b
 Function named as `solve_Q_e(AM, Phi0, Phi_lake, N, C, z_ref, W, nw, zw, rw, M, nu, z1, z2, a, m, chi_far)` in `functions.py`
 
 #### Calculations
-Generates a vector of each elemets difference in discharge potential without the far field condition <img src="/tex/0b2c18a5822880401535d6948510d542.svg?invert_in_darkmode&sanitize=true" align=middle width=110.73544184999999pt height=25.68036239999998pt/>
+Generates a vector of each elemets difference in discharge potential without the far field condition <img src="/tex/1c2e35b96f5e17293aa7a7488a480325.svg?invert_in_darkmode&sanitize=true" align=middle width=120.03340634999999pt height=25.680359100000008pt/>
 
-<p align="center"><img src="/tex/68f0445b50af4b4442e8c3a95881d9e6.svg?invert_in_darkmode&sanitize=true" align=middle width=76.87029735pt height=39.452455349999994pt/></p>
+<p align="center"><img src="/tex/c38ee8abebb10ebd13fa97b1ef001cbd.svg?invert_in_darkmode&sanitize=true" align=middle width=86.16824204999999pt height=39.452455349999994pt/></p>
 
 Then the discharges for the far field condition are calculated as
 
