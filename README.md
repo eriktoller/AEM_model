@@ -39,7 +39,7 @@ if <img src="/tex/71acaaa86f32d6fbb06d7e20fc052bb8.svg?invert_in_darkmode&saniti
 
 else  
 
-<img src="/tex/40cbb2171b04ea9fae6b565a2c57c7b7.svg?invert_in_darkmode&sanitize=true" align=middle width=201.62401215pt height=37.80850590000001pt/>
+<p align="center"><img src="/tex/1e633036e70961bbb70f779d0ef2285a.svg?invert_in_darkmode&sanitize=true" align=middle width=218.64412019999997pt height=39.814869599999994pt/></p>
 
 ## Definition of variables
 **Reference point and aquifer properties**  
