@@ -46,11 +46,17 @@ else
 
 <p align="center"><img src="/tex/a5d53d2556b03658023741863dacd162.svg?invert_in_darkmode&sanitize=true" align=middle width=257.33323440000004pt height=44.69878215pt/></p>
 
-%### Cauchy Integral
-%Function named as `Cauchy_integral(N, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
+### Cauchy Integral
+Function named as `Cauchy_integral(N, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
 
-%#### Calculations
-%<p align="center"><img src="/tex/5a63bbd852232dc1c7eab122366452c3.svg?invert_in_darkmode&sanitize=true" align=middle width=191.23433175pt height=48.18280005pt/></p>
+#### Calculations
+<p align="center"><img src="/tex/5a63bbd852232dc1c7eab122366452c3.svg?invert_in_darkmode&sanitize=true" align=middle width=191.23433175pt height=48.18280005pt/></p>
+
+### AM Matrix
+Function named as `get_AMQ(N, z_ref, nw, zw, rw, Q, M, nu, z1, z2, m, chi_far)` in `functions.py`
+
+#### Calculations
+<p align="center"><img src="/tex/62d3770aae0f91364540648ee6c200ab.svg?invert_in_darkmode&sanitize=true" align=middle width=103.02125625pt height=39.452455349999994pt/></p>
 
 ## Definition of variables
 **Reference point and aquifer properties**  
