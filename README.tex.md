@@ -7,6 +7,10 @@ Master script: `run_aem.py`
 
 ## Functions
 This groundwater model is constructed out of mutiple complex discharge fucntions with which the solutions are super-positionable. In the current program the following discharge potential functions are included:
+- `Phi_from_fi`
+- `fi_from_Phi`
+- `z_of_chi`
+- `chi_of_z`
 - `Omega_total`
 - `Omega_uni`
 - `Omega_well`
@@ -23,13 +27,13 @@ Function named as `Phi_from_fi(fi, k, H)` in `functions.py`
 if $fi < H$
 $$\Phi = \frac{1}{2}k\phi^2$$
 else
-$$Phi = kH\phi - \frac{1}{2}kH^^2$$
+$$\Phi = kH\phi - \frac{1}{2}kH^^2$$
 
 ### Head from Discharge Potential
 Function named as `fi_from_Phi(Phi, k, H)` in `functions.py`
 
 #### Calculations
-if $Phi < \frac{1}{2}kH^2$
+if $\Phi < \frac{1}{2}kH^2$
 $$\phi = \sqrt{2\frac{\Phi}{k}}$$
 else
 $$\phi = \frac{\Phi + \frac{1}{2}kH^2}{kH}$$
