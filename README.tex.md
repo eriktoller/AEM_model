@@ -16,7 +16,7 @@ This groundwater model is constructed out of mutiple complex discharge fucntions
 Function named as `Omega_total(z, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
 
 #### Calculations
-$$\Omega = \underset{uni}{\Omega} + \underset{well}{\Omega} + \underset{lake}{\Omega} + C$
+$$\Omega = \underset{uni}{\Omega} + \underset{well}{\Omega} + \underset{lake}{\Omega} + C$$
 
 ### Omega Uniform Flow
 Function named as `Omega_uni(z, W)` in `functions.py`
