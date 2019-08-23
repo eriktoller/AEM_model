@@ -6,37 +6,17 @@ Current version: 0.1 (2019-08-21)
 Master script: `run_aem.py`
 
 ## Functions
-This groundwater model is constructed out of mutiple complex discharge fucntions with which the solutions are super-positionable. In the current program the following functions are included:
+This groundwater model is constructed out of mutiple complex discharge fucntions with which the solutions are super-positionable. In the current program the following discharge potential functions are included:
+- `Omega_total`
 - `Omega_uni`
 - `Omega_well`
 - `Omega_lake`
 
-### Omega Uniform Flow
-Function named as `Omega_uni(z, W)` in `functions.py`
+### Omega Total
+Function named as `Omega_total(z, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
 
 #### Calculations
-<p align="center"><img src="/tex/44c030f582ac4cddc27dc379893ea030.svg?invert_in_darkmode&sanitize=true" align=middle width=81.42799335pt height=21.586699199999998pt/></p>
-
-### Omega Well
-Function named as `Omega_well(z, zw, rw, Q)` in `functions.py`
-
-#### Calculations
-if <img src="/tex/074746e0e5a47c594ef363aed64574c6.svg?invert_in_darkmode&sanitize=true" align=middle width=95.03039699999998pt height=24.65753399999998pt/>
-<p align="center"><img src="/tex/167c2937d0714a2eed55f7d25c1e526a.svg?invert_in_darkmode&sanitize=true" align=middle width=79.29816179999999pt height=21.96341895pt/></p>  
-else  
-<p align="center"><img src="/tex/6ffa722d1184652ed2d6d9324f5e8679.svg?invert_in_darkmode&sanitize=true" align=middle width=152.04851804999998pt height=33.62942055pt/></p>
-
-### Omega Lake
-Function named as `Omega_lake(chi, a, Q, chi_far, m)` in `functions.py`
-
-#### Calculations
-if <img src="/tex/71acaaa86f32d6fbb06d7e20fc052bb8.svg?invert_in_darkmode&sanitize=true" align=middle width=50.707529399999984pt height=21.18721440000001pt/>  
-
-<p align="center"><img src="/tex/7619f2ee4811aaafcecaba16e469a855.svg?invert_in_darkmode&sanitize=true" align=middle width=79.651506pt height=21.96341895pt/></p>  
-
-else  
-
-<p align="center"><img src="/tex/a738b4421b79a4f6e97224a1adff56ef.svg?invert_in_darkmode&sanitize=true" align=middle width=236.18018159999997pt height=44.69878215pt/></p>
+<p align="center"><img src="/tex/c035769e91775a7eb428b3f25bcb08c4.svg?invert_in_darkmode&sanitize=true" align=middle width=552.1264732499999pt height=67.1688996pt/></p>\underset{uni}{\Omega} = -Wz<p align="center"><img src="/tex/5279c0c08f641f1dba429df6ac010f6c.svg?invert_in_darkmode&sanitize=true" align=middle width=539.3614314pt height=36.164383199999996pt/></p>\underset{well}{\Omega} = \text{NaN}<p align="center"><img src="/tex/cd4a6854dd3bb4ebd2f7f6ef37c0cde1.svg?invert_in_darkmode&sanitize=true" align=middle width=28.242099599999996pt height=11.4155283pt/></p>\underset{well}{\Omega} = \frac{Q}{2\pi}\log(z - z_w)<p align="center"><img src="/tex/5d9b3c813737a840bd281062109b1b3c.svg?invert_in_darkmode&sanitize=true" align=middle width=593.1937506pt height=35.251144499999995pt/></p>\underset{lake}{\Omega} = \text{NaN}<p align="center"><img src="/tex/d56c8ea1f620eae353d8b75eaf46a0c8.svg?invert_in_darkmode&sanitize=true" align=middle width=25.662169499999997pt height=11.4155283pt/></p>\underset{lake}{\Omega} = \sum_2^n \frac{a_n}{\chi^{-n}} + \frac{Q}{2\pi}\log\left(\frac{\chi}{\chi_{far}}\right)$$
 
 ## Definition of variables
 **Reference point and aquifer properties**  
