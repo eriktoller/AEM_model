@@ -35,11 +35,11 @@ Function named as `Omega_lake(chi, a, Q, chi_far, m)` in `functions.py`
 #### Calculations
 if <img src="/tex/71acaaa86f32d6fbb06d7e20fc052bb8.svg?invert_in_darkmode&sanitize=true" align=middle width=50.707529399999984pt height=21.18721440000001pt/>  
 
-<img src="/tex/3d817b6781989b088a3dde0759b36703.svg?invert_in_darkmode&sanitize=true" align=middle width=79.65150599999998pt height=22.465723500000017pt/>  
+<p align="center"><img src="/tex/7619f2ee4811aaafcecaba16e469a855.svg?invert_in_darkmode&sanitize=true" align=middle width=79.651506pt height=21.96341895pt/></p>  
 
 else  
 
-<p align="center"><img src="/tex/1e633036e70961bbb70f779d0ef2285a.svg?invert_in_darkmode&sanitize=true" align=middle width=218.64412019999997pt height=39.814869599999994pt/></p>
+<p align="center"><img src="/tex/a738b4421b79a4f6e97224a1adff56ef.svg?invert_in_darkmode&sanitize=true" align=middle width=236.18018159999997pt height=44.69878215pt/></p>
 
 ## Definition of variables
 **Reference point and aquifer properties**  
