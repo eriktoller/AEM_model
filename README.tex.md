@@ -16,22 +16,22 @@ This groundwater model is constructed out of mutiple complex discharge fucntions
 Function named as `Omega_total(z, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
 
 #### Calculations
-$$\Omega = \underset{uni}{\Omega} + \underset{well}{\Omega} + \underset{lake}{\Omega} + C$$
+$$\Omega(z) = \underset{uni}{\Omega} + \underset{well}{\Omega} + \underset{lake}{\Omega} + C$$
 
 ### Omega Uniform Flow
 Function named as `Omega_uni(z, W)` in `functions.py`
 
 #### Calculations
-$$\underset{uni}{\Omega} = -Wz$$
+$$\underset{uni}{\Omega}(z) = -Wz$$
 
 ### Omega Well
 Function named as `Omega_well(z, zw, rw, Q)` in `functions.py`
 
 #### Calculations
 if $|z - z_w| < r_w$
-$$\underset{well}{\Omega} = \text{NaN}$$  
+$$\underset{well}{\Omega}(z) = \text{NaN}$$  
 else  
-$$\underset{well}{\Omega} = \frac{Q}{2\pi}\log(z - z_w)$$
+$$\underset{well}{\Omega}(z) = \frac{Q}{2\pi}\log(z - z_w)$$
 
 ### Omega Lake
 Function named as `Omega_lake(chi, a, Q, chi_far, m)` in `functions.py`
@@ -39,11 +39,11 @@ Function named as `Omega_lake(chi, a, Q, chi_far, m)` in `functions.py`
 #### Calculations
 if $\chi\bar{\chi} < 1$  
 
-$$\underset{lake}{\Omega} = \text{NaN}$$  
+$$\underset{lake}{\Omega}(z) = \text{NaN}$$  
 
 else  
 
-$$\underset{lake}{\Omega} = \sum_2^n \frac{a_n}{\chi^{-n}} + \frac{Q}{2\pi}\log\left(\frac{\chi}{\chi_{far}}\right)$$
+$$\underset{lake}{\Omega}(z) = \sum_2^n \frac{a_n}{\chi^{-n}} + \frac{Q}{2\pi}\log\left(\frac{\chi}{\chi_{far}}\right)$$
 
 ## Definition of variables
 **Reference point and aquifer properties**  
