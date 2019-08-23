@@ -46,11 +46,11 @@ else
 
 <p align="center"><img src="/tex/a5d53d2556b03658023741863dacd162.svg?invert_in_darkmode&sanitize=true" align=middle width=257.33323440000004pt height=44.69878215pt/></p>
 
-### Cauchy Integral
-Function named as `Cauchy_integral(N, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
+%### Cauchy Integral
+%Function named as `Cauchy_integral(N, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
 
-#### Calculations
-<p align="center"><img src="/tex/e6642ae630a2f45df2618fd24f8a1157.svg?invert_in_darkmode&sanitize=true" align=middle width=191.0687328pt height=48.18280005pt/></p>
+%#### Calculations
+%<p align="center"><img src="/tex/5a63bbd852232dc1c7eab122366452c3.svg?invert_in_darkmode&sanitize=true" align=middle width=191.23433175pt height=48.18280005pt/></p>
 
 ## Definition of variables
 **Reference point and aquifer properties**  
