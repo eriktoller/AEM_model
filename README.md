@@ -16,6 +16,38 @@ This groundwater model is constructed out of mutiple complex discharge fucntions
 - `solve_Q_e`
 - `solve_lakes`
 
+### Discharge Potential from Head
+Function named as `Phi_from_fi(fi, k, H)` in `functions.py`
+
+#### Calculations
+if <img src="/tex/e6d34c6a5a789e1e4a0bbb3139790504.svg?invert_in_darkmode&sanitize=true" align=middle width=52.398261299999994pt height=22.831056599999986pt/>
+<p align="center"><img src="/tex/ab1e28cfe267702e0eeab32d0e2898ae.svg?invert_in_darkmode&sanitize=true" align=middle width=71.3766603pt height=32.990165999999995pt/></p>
+else
+<p align="center"><img src="/tex/a5affb30940f04eaab5396ac815816c3.svg?invert_in_darkmode&sanitize=true" align=middle width=147.96249435pt height=32.990165999999995pt/></p>
+
+### Head from Discharge Potential
+Function named as `fi_from_Phi(Phi, k, H)` in `functions.py`
+
+#### Calculations
+if <img src="/tex/c53b171674e90f2c5fbc1efd997a59c5.svg?invert_in_darkmode&sanitize=true" align=middle width=91.01435969999999pt height=27.77565449999998pt/>
+<p align="center"><img src="/tex/5e4825e9fb5ed6bc3c4912794e2da345.svg?invert_in_darkmode&sanitize=true" align=middle width=72.1871106pt height=39.452455349999994pt/></p>
+else
+<p align="center"><img src="/tex/a2fc40d114326e9cf1ef660ebfdc0983.svg?invert_in_darkmode&sanitize=true" align=middle width=107.59562055pt height=37.24318125pt/></p>
+
+### z of <img src="/tex/c91091e68f0e0113ff161179172813ac.svg?invert_in_darkmode&sanitize=true" align=middle width=10.28535419999999pt height=14.15524440000002pt/>
+Function named as `z_of_chi(chi, nu, z1, z2)` in `functions.py`
+
+#### Calculations
+<p align="center"><img src="/tex/4a263826c44f470d2b8d03be31904eb2.svg?invert_in_darkmode&sanitize=true" align=middle width=121.97223389999999pt height=39.452455349999994pt/></p>
+<p align="center"><img src="/tex/8c14bf13c4f436b5b6eb697ba69806ee.svg?invert_in_darkmode&sanitize=true" align=middle width=200.76780899999997pt height=32.990165999999995pt/></p>
+
+### <img src="/tex/c91091e68f0e0113ff161179172813ac.svg?invert_in_darkmode&sanitize=true" align=middle width=10.28535419999999pt height=14.15524440000002pt/> of z
+Function named as `chi_of_z(z, nu, z1, z2)` in `functions.py`
+
+#### Calculations
+<p align="center"><img src="/tex/4037f5dcb8ef72acd613fd5d9570e1e1.svg?invert_in_darkmode&sanitize=true" align=middle width=123.09491535000001pt height=35.45589465pt/></p>
+<p align="center"><img src="/tex/e6327bf7a0513fccdebe5d1af604716c.svg?invert_in_darkmode&sanitize=true" align=middle width=195.4562181pt height=18.80246775pt/></p>
+
 ### Omega Total
 Function named as `Omega_total(z, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
 
