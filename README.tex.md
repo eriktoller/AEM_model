@@ -56,10 +56,27 @@ $$a_n = \frac{1}{N}\sum_{k=1}^N \underset{other}{\Omega}(z_k)\text{e}^{-in\theta
 Function named as `get_AMQ(N, z_ref, nw, zw, rw, Q, M, nu, z1, z2, m, chi_far)` in `functions.py`
 
 #### Calculations
-$$AM = \begin{bmatrix} 
-a & b \\
-c & d 
+Generates a matrix of each elemets far field condition $\Lambda_{m,n}$
+
+$$ \text{AM} = \begin{bmatrix} 
+\Lambda_{1,1} & \Lambda_{1,n} & 1 \\
+\Lambda_{m,1} & \Lambda_{m,n} & 1
 \end{bmatrix}$$
+
+### KN Matrix and Q Solver
+Function named as `solve_Q_e(AM, Phi0, Phi_lake, N, C, z_ref, W, nw, zw, rw, M, nu, z1, z2, a, m, chi_far)` in `functions.py`
+
+#### Calculations
+Generates a vector of each elemets difference in discharge potential without the far field condition $\Beta_{m} = \underset{head}{\Phi} - \underset{\text{no Q}}{\Phi}$
+
+$$ \text{KN} = \begin{bmatrix} 
+\Beta_{1} \\
+\Beta_{m}
+\end{bmatrix}$$
+
+Then the discharges for the far field condition are calculated as
+
+$$Q = \textbf{AM}^{-1}\textbf{KN}$$
 
 ## Definition of variables
 **Reference point and aquifer properties**  
