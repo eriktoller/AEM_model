@@ -11,6 +11,7 @@ This groundwater model is constructed out of mutiple complex discharge fucntions
 - `Omega_uni`
 - `Omega_well`
 - `Omega_lake`
+- `Cauchy_integral`
 
 ### Omega Total
 Function named as `Omega_total(z, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
@@ -44,6 +45,12 @@ if <img src="/tex/71acaaa86f32d6fbb06d7e20fc052bb8.svg?invert_in_darkmode&saniti
 else  
 
 <p align="center"><img src="/tex/a5d53d2556b03658023741863dacd162.svg?invert_in_darkmode&sanitize=true" align=middle width=257.33323440000004pt height=44.69878215pt/></p>
+
+### Cauchy Integral
+Function named as `Cauchy_integral(N, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
+
+#### Calculations
+<p align="center"><img src="/tex/0d44fe5b14e74572d99592c267cc8185.svg?invert_in_darkmode&sanitize=true" align=middle width=221.97822735pt height=48.18280005pt/></p>
 
 ## Definition of variables
 **Reference point and aquifer properties**  
