@@ -24,7 +24,7 @@ This groundwater model is constructed out of mutiple complex discharge fucntions
 Function named as `Phi_from_fi(fi, k, H)` in `functions.py`
 
 #### Calculations
-if <img src="/tex/e6d34c6a5a789e1e4a0bbb3139790504.svg?invert_in_darkmode&sanitize=true" align=middle width=52.398261299999994pt height=22.831056599999986pt/>
+if <img src="/tex/7fc633cc9139c1ed410c6aee5e4b1435.svg?invert_in_darkmode&sanitize=true" align=middle width=46.71216494999999pt height=22.831056599999986pt/>
 <p align="center"><img src="/tex/ab1e28cfe267702e0eeab32d0e2898ae.svg?invert_in_darkmode&sanitize=true" align=middle width=71.3766603pt height=32.990165999999995pt/></p>
 else
 <p align="center"><img src="/tex/ca130046a536fb47eec3d3dbbda7f1bc.svg?invert_in_darkmode&sanitize=true" align=middle width=131.86355985pt height=32.990165999999995pt/></p>
