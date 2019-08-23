@@ -12,6 +12,9 @@ This groundwater model is constructed out of mutiple complex discharge fucntions
 - `Omega_well`
 - `Omega_lake`
 - `Cauchy_integral`
+- `get_AMQ`
+- `solve_Q_e`
+- `solve_lakes`
 
 ### Omega Total
 Function named as `Omega_total(z, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
@@ -77,6 +80,12 @@ $$ \text{KN} = \begin{bmatrix}
 Then the discharges for the far field condition are calculated as
 
 $$Q = \textbf{AM}^{-1}\textbf{KN}$$
+
+### Coefficient Solver
+Function named as `solve_lakes(Phi_lake, N, Phi0, z_ref, W, nw, zw, rw, M, nu, z1, z2, m, chi_far)` in `functions.py`
+
+#### Calculations
+AN iterative solver for the coefficients $a_n$ and $Q$. It solves firstly for all $Q$ and then for each coefficient $a_n$ excluding the element who’s coefficients it is solving for. The loop solving for $Q$ then $a_n$ is repeated until the maximum difference between two solves are smaller than a given number, typically $10^{-6}$.
 
 ## Definition of variables
 **Reference point and aquifer properties**  
