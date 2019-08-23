@@ -24,7 +24,7 @@ This groundwater model is constructed out of mutiple complex discharge fucntions
 Function named as `Phi_from_fi(fi, k, H)` in `functions.py`
 
 #### Calculations
-if $fi < H$
+if $\phi < H$
 $$\Phi = \frac{1}{2}k\phi^2$$
 else
 $$\Phi = kH\phi - \frac{1}{2}kH^^2$$
