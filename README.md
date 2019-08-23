@@ -12,6 +12,9 @@ This groundwater model is constructed out of mutiple complex discharge fucntions
 - `Omega_well`
 - `Omega_lake`
 - `Cauchy_integral`
+- `get_AMQ`
+- `solve_Q_e`
+- `solve_lakes`
 
 ### Omega Total
 Function named as `Omega_total(z, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
@@ -71,6 +74,12 @@ Generates a vector of each elemets difference in discharge potential without the
 Then the discharges for the far field condition are calculated as
 
 <p align="center"><img src="/tex/fe50763364acdc65f896e7e6ae9da3fa.svg?invert_in_darkmode&sanitize=true" align=middle width=114.41051490000001pt height=17.82653235pt/></p>
+
+### Coefficient Solver
+Function named as `solve_lakes(Phi_lake, N, Phi0, z_ref, W, nw, zw, rw, M, nu, z1, z2, m, chi_far)` in `functions.py`
+
+#### Calculations
+AN iterative solver for the coefficients <img src="/tex/6512cbd0d448700a036bf3a691c37acc.svg?invert_in_darkmode&sanitize=true" align=middle width=16.81517804999999pt height=14.15524440000002pt/> and <img src="/tex/1afcdb0f704394b16fe85fb40c45ca7a.svg?invert_in_darkmode&sanitize=true" align=middle width=12.99542474999999pt height=22.465723500000017pt/>. It solves firstly for all <img src="/tex/1afcdb0f704394b16fe85fb40c45ca7a.svg?invert_in_darkmode&sanitize=true" align=middle width=12.99542474999999pt height=22.465723500000017pt/> and then for each coefficient <img src="/tex/6512cbd0d448700a036bf3a691c37acc.svg?invert_in_darkmode&sanitize=true" align=middle width=16.81517804999999pt height=14.15524440000002pt/> excluding the element who’s coefficients it is solving for. The loop solving for <img src="/tex/1afcdb0f704394b16fe85fb40c45ca7a.svg?invert_in_darkmode&sanitize=true" align=middle width=12.99542474999999pt height=22.465723500000017pt/> then <img src="/tex/6512cbd0d448700a036bf3a691c37acc.svg?invert_in_darkmode&sanitize=true" align=middle width=16.81517804999999pt height=14.15524440000002pt/> is repeated until the maximum difference between two solves are smaller than a given number, typically <img src="/tex/ec4c25dce67266d40679a50bf9d75e70.svg?invert_in_darkmode&sanitize=true" align=middle width=33.26498669999999pt height=26.76175259999998pt/>.
 
 ## Definition of variables
 **Reference point and aquifer properties**  
