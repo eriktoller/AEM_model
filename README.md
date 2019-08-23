@@ -56,7 +56,21 @@ Function named as `Cauchy_integral(N, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, 
 Function named as `get_AMQ(N, z_ref, nw, zw, rw, Q, M, nu, z1, z2, m, chi_far)` in `functions.py`
 
 #### Calculations
-<p align="center"><img src="/tex/62d3770aae0f91364540648ee6c200ab.svg?invert_in_darkmode&sanitize=true" align=middle width=103.02125625pt height=39.452455349999994pt/></p>
+Generates a matrix of each elemets far field condition <img src="/tex/983483b08b02816f1eff5947365b4627.svg?invert_in_darkmode&sanitize=true" align=middle width=35.11055129999999pt height=22.465723500000017pt/>
+
+<p align="center"><img src="/tex/2a175680823357bce20a679f228981fd.svg?invert_in_darkmode&sanitize=true" align=middle width=178.0539024pt height=39.452455349999994pt/></p>
+
+### KN Matrix and Q Solver
+Function named as `solve_Q_e(AM, Phi0, Phi_lake, N, C, z_ref, W, nw, zw, rw, M, nu, z1, z2, a, m, chi_far)` in `functions.py`
+
+#### Calculations
+Generates a vector of each elemets difference in discharge potential without the far field condition <img src="/tex/0b2c18a5822880401535d6948510d542.svg?invert_in_darkmode&sanitize=true" align=middle width=110.73544184999999pt height=25.68036239999998pt/>
+
+<p align="center"><img src="/tex/68f0445b50af4b4442e8c3a95881d9e6.svg?invert_in_darkmode&sanitize=true" align=middle width=76.87029735pt height=39.452455349999994pt/></p>
+
+Then the discharges for the far field condition are calculated as
+
+<p align="center"><img src="/tex/fe50763364acdc65f896e7e6ae9da3fa.svg?invert_in_darkmode&sanitize=true" align=middle width=114.41051490000001pt height=17.82653235pt/></p>
 
 ## Definition of variables
 **Reference point and aquifer properties**  
