@@ -35,11 +35,11 @@ Function named as `Omega_lake(chi, a, Q, chi_far, m)` in `functions.py`
 #### Calculations
 if $\chi\bar{\chi} < 1$  
 
-$\underset{lake}{\Omega} = \text{NaN}$  
+$$\underset{lake}{\Omega} = \text{NaN}$$  
 
 else  
 
-$$\underset{lake}{\Omega} = \Sum_2^n \frac{a_n}{\chi^{-n}} + \frac{Q}{2\pi}\log\left(\frac{\chi}{\chi_{far}}\right)$$
+$$\underset{lake}{\Omega} = \sum_2^n \frac{a_n}{\chi^{-n}} + \frac{Q}{2\pi}\log\left(\frac{\chi}{\chi_{far}}\right)$$
 
 ## Definition of variables
 **Reference point and aquifer properties**  
