@@ -16,6 +16,38 @@ This groundwater model is constructed out of mutiple complex discharge fucntions
 - `solve_Q_e`
 - `solve_lakes`
 
+### Discharge Potential from Head
+Function named as `Phi_from_fi(fi, k, H)` in `functions.py`
+
+#### Calculations
+if $fi < H$
+$$\Phi = \frac{1}{2}k\phi^2$$
+else
+$$Phi = kH\phi - \frac{1}{2}kH^^2$$
+
+### Head from Discharge Potential
+Function named as `fi_from_Phi(Phi, k, H)` in `functions.py`
+
+#### Calculations
+if $Phi < \frac{1}{2}kH^2$
+$$\phi = \sqrt{2\frac{\Phi}{k}}$$
+else
+$$\phi = \frac{\Phi + \frac{1}{2}kH^2}{kH}$$
+
+### z of $\chi$
+Function named as `z_of_chi(chi, nu, z1, z2)` in `functions.py`
+
+#### Calculations
+$$Z = \frac{1}{2}\left(\frac{\chi}{\nu} + \frac{\nu}{\chi}\right)$$
+$$z = \frac{1}{2}(Z(z_2 - z_1) + z_2 + z_1)$$
+
+### $\chi$ of z
+Function named as `chi_of_z(z, nu, z1, z2)` in `functions.py`
+
+#### Calculations
+$$Z = \frac{2z - z_1 - z_2}{z_2 - z_1}$$
+$$\chi = \nu(Z + \sqrt{Z-1}\sqrt{Z+1})$$
+
 ### Omega Total
 Function named as `Omega_total(z, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
 
