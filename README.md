@@ -50,7 +50,7 @@ else
 Function named as `Cauchy_integral(N, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
 
 #### Calculations
-<p align="center"><img src="/tex/0d44fe5b14e74572d99592c267cc8185.svg?invert_in_darkmode&sanitize=true" align=middle width=221.97822735pt height=48.18280005pt/></p>
+<p align="center"><img src="/tex/926b46bf16da841edb3c4f471c92196e.svg?invert_in_darkmode&sanitize=true" align=middle width=183.7628001pt height=48.18280005pt/></p>
 
 ## Definition of variables
 **Reference point and aquifer properties**  
