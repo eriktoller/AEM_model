@@ -67,11 +67,11 @@ $$ \text{AM} = \begin{bmatrix}
 Function named as `solve_Q_e(AM, Phi0, Phi_lake, N, C, z_ref, W, nw, zw, rw, M, nu, z1, z2, a, m, chi_far)` in `functions.py`
 
 #### Calculations
-Generates a vector of each elemets difference in discharge potential without the far field condition $\Beta_{m} = \underset{head}{\Phi} - \underset{\text{no Q}}{\Phi}$
+Generates a vector of each elemets difference in discharge potential without the far field condition $\beta_{m} = \underset{head}{\Phi} - \underset{\text{no Q}}{\Phi}$
 
 $$ \text{KN} = \begin{bmatrix} 
-\Beta_{1} \\
-\Beta_{m}
+\beta_{1} \\
+\beta_{m}
 \end{bmatrix}$$
 
 Then the discharges for the far field condition are calculated as
