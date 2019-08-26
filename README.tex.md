@@ -83,7 +83,7 @@ $$\underset{lake}{\Omega}(z) = \text{NaN}$$
 
 else  
 
-$$\underset{lake}{\Omega}(z) = \sum_2^n \frac{a_n}{\chi^{-n}} + \frac{Q}{2\pi}\log\left(\frac{\chi}{\chi_{far}}\right)$$
+$$\underset{lake}{\Omega}(z) = \sum_2^n \frac{a_n}{\chi^{n}} + \frac{Q}{2\pi}\log\left(\frac{\chi}{\chi_{far}}\right)$$
 
 ### Cauchy Integral
 Function named as `Cauchy_integral(N, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
