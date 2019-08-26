@@ -83,7 +83,7 @@ if <img src="/tex/71acaaa86f32d6fbb06d7e20fc052bb8.svg?invert_in_darkmode&saniti
 
 else  
 
-<p align="center"><img src="/tex/a5d53d2556b03658023741863dacd162.svg?invert_in_darkmode&sanitize=true" align=middle width=257.33323440000004pt height=44.69878215pt/></p>
+<p align="center"><img src="/tex/47b3f5ff0a294a256e05f2c1d3bcc13f.svg?invert_in_darkmode&sanitize=true" align=middle width=247.05923549999997pt height=44.69878215pt/></p>
 
 ### Cauchy Integral
 Function named as `Cauchy_integral(N, C, W, nw, zw, rw, Q, M, nu, z1, z2, a, m, chi_far, M_not)` in `functions.py`
