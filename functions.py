@@ -45,7 +45,8 @@ def Omega_well(z, zw, rw, Q):
 
 
 def Omega_total(z, C, W, nw, zw, rw, Q,
-                M, nu, z1, z2, a, m, chi_far, M_not):
+                M, nu, z1, z2, a, m, chi_far, M_not,
+                M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp, M_not_imp):
     Omega = C + 0j
     if W != 0:
         Omega += Omega_uni(z, W)
@@ -58,6 +59,42 @@ def Omega_total(z, C, W, nw, zw, rw, Q,
                 chi = chi_of_z(z, nu[mm], z1[mm], z2[mm])
                 Omega += Omega_lake(chi, a[mm, :],
                                     Q[0, mm], chi_far[mm], m[mm])
+    if M_imp > 0:
+        for mm in range(M_imp):
+            if mm != M_not_imp:
+                chi = chi_of_z(z, nu_imp[mm], z1_imp[mm], z2_imp[mm])
+                Omega += Omega_imp(chi, alpha[mm, :], m_imp[mm])
+    return Omega
+
+
+def Omega_lake(chi, a, Q, chi_far, m):
+    chi_con = np.conj(chi)
+    if chi * chi_con < 0.999:
+        Omega = complex(np.nan, np.nan)
+    else:
+        if m == 0:
+            Omega = complex(0, 0)
+        else:
+            Omega = a[m]
+            for ii in range(m):
+                mm = m-(ii+1)
+                if mm != 0:
+                    Omega = Omega/chi + a[mm]
+                else:
+                    Omega /= chi
+    if Q != 0:
+        Omega += Q / (2 * cmath.pi) * cmath.log(chi / abs(chi_far))
+    return Omega
+
+
+def Omega_imp(chi, alpha, m_imp):
+    chi_con = np.conj(chi)
+    if chi * chi_con < 0.999:
+        Omega = complex(np.nan, np.nan)
+    else:
+        Omega = complex(0, 0)
+        for ii in range(m_imp):
+            Omega += alpha[ii] * chi**(-ii)
     return Omega
 
 
@@ -95,28 +132,10 @@ def chi_of_z(z, nu, z1, z2):
     return chi
 
 
-def Omega_lake(chi, a, Q, chi_far, m):
-    chi_con = np.conj(chi)
-    if chi * chi_con < 0.999:
-        Omega = complex(np.nan, np.nan)
-    else:
-        if m == 0:
-            Omega = complex(0, 0)
-        else:
-            Omega = a[m]
-            for ii in range(m):
-                mm = m-(ii+1)
-                if mm != 0:
-                    Omega = Omega/chi + a[mm]
-                else:
-                    Omega /= chi
-    if Q != 0:
-        Omega += Q / (2 * cmath.pi) * cmath.log(chi / abs(chi_far))
-    return Omega
-
-
-def Cauchy_integral(N, C, W, nw, zw, rw, Q,
-                    M, nu, z1, z2, a, m, chi_far, M_not):
+def Cauchy_integral_head(N, C, W, nw, zw, rw, Q,
+                         M, nu, z1, z2, a, m, chi_far, M_not,
+                         M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp,
+                         M_not_imp):
     d_theta = 2 * cmath.pi / N
     theta0 = 0.5*d_theta
     intgrl = np.zeros([N, m[M_not[0]]+1], dtype=np.complex_)
@@ -126,7 +145,9 @@ def Cauchy_integral(N, C, W, nw, zw, rw, Q,
         chi = cmath.exp(1j*theta)
         z = z_of_chi(chi, nu[M_not[0]], z1[M_not[0]], z2[M_not[0]])
         Omega = Omega_total(z, C, W, nw, zw, rw, Q,
-                            M, nu, z1, z2, a, m, chi_far, M_not[-1])
+                            M, nu, z1, z2, a, m, chi_far, M_not[-1],
+                            M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp,
+                            M_not_imp)
         for jj in range(m[M_not[0]]+1):
             intgrl[ii, jj] = np.real(Omega) * cmath.exp(-1j * jj * theta)
     for kk in range(m[M_not[0]]+1):
@@ -135,29 +156,87 @@ def Cauchy_integral(N, C, W, nw, zw, rw, Q,
     return b
 
 
+def Cauchy_integral_imp(N, C, W, nw, zw, rw, Q,
+                        M, nu, z1, z2, a, m, chi_far, M_not,
+                        M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp,
+                        M_not_imp):
+    d_theta = 2 * cmath.pi / N
+    theta0 = 0.5*d_theta
+    intgrl = np.zeros([N, m_imp[M_not_imp[0]]+1], dtype=np.complex_)
+    b = np.zeros([1, m_imp[M_not_imp[0]]+1], dtype=np.complex_)
+    zp = z_of_chi(cmath.exp(1j*theta0), nu_imp[M_not_imp[0]],
+                  z1_imp[M_not_imp[0]], z2_imp[M_not_imp[0]])
+    Psi1 = np.imag(Omega_total(zp, C, W, nw, zw, rw, Q,
+                               M, nu, z1, z2, a, m, chi_far, M_not,
+                               M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp,
+                               M_not_imp[0]))
+    f = np.zeros([1, N])
+    differ = np.zeros([1, N])
+    theta = np.zeros([1, N])
+    for ii in range(N):
+        theta[0, ii] = theta0 + ii * d_theta
+        chi = cmath.exp(1j*theta[0, ii])
+        z = z_of_chi(chi, nu_imp[M_not_imp[0]], z1_imp[M_not_imp[0]],
+                     z2_imp[M_not_imp[0]])
+        Omega = Omega_total(z, C, W, nw, zw, rw, Q,
+                            M, nu, z1, z2, a, m, chi_far, M_not,
+                            M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp,
+                            M_not_imp[0])
+        Psi2 = np.imag(Omega)
+        differ[0, ii] = Psi2 - Psi1
+        Psi1 = Psi2
+    cond = np.std(np.diff(np.abs(differ)))+np.mean(np.abs(differ))
+    RUN = True
+    jj = 2
+    while RUN:
+        if np.abs(np.diff(differ[0, jj:(jj+2)])) > cond:
+            differ[0, jj+1] = (differ[0, jj] + differ[0, jj+2])/2
+            print(jj)
+        jj += 1
+        if jj == N:
+            RUN = False
+    f[0, 0] = Psi1
+    for gg in range(1, N):
+        f[0, gg] = f[0, gg-1] + differ[0, gg]
+    for ii in range(N):
+        for jj in range(m_imp[M_not_imp[0]]+1):
+            intgrl[ii, jj] = f[0, ii] * cmath.exp(-1j * jj * theta[0, ii])
+    for kk in range(m_imp[M_not_imp[0]]+1):
+        b[0, kk] = 2j / N * sum(intgrl[:, kk])
+        b[0, 0] /= 2
+    return b
+
+
 def solve_Q_e(AM, Phi0, Phi_lake, N, C, z_ref, W, nw, zw, rw,
-              M, nu, z1, z2, a, m, chi_far):
+              M, nu, z1, z2, a, m, chi_far,
+              M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp):
     KN = np.zeros([M+nw+1, 1])
     Q0 = np.zeros([1, M+nw])
-    C = 0  # <-- This one has been missing from the ellipse funciton
+    C = 0
     for ii in range(M):
-        aa = Cauchy_integral(N, C, W, nw, zw, rw, Q0,
-                             M, nu, z1, z2,
-                             a, m, chi_far, [ii, -1])
+        aa = Cauchy_integral_head(N, C, W, nw, zw, rw, Q0,
+                                  M, nu, z1, z2,
+                                  a, m, chi_far, [ii, -1],
+                                  M_imp, nu_imp, z1_imp, z2_imp, alpha,
+                                  m_imp, [-1])
         KN[ii, 0] = Phi_lake[ii] - np.real(aa[0, 0])
     for jj in range(nw):
         aa = Omega_total(zw[jj]+rw[jj]*1.0001, C, W, nw, zw, rw, Q0,
-                         M, nu, z1, z2, a, m, chi_far, -1)
+                         M, nu, z1, z2, a, m, chi_far, -1,
+                         M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp, [-1])
         KN[M+jj, 0] = Phi_lake[M+jj] - np.real(aa)
     KN[M+nw, 0] = Phi0 - np.real(Omega_total(z_ref, 0, W, nw, zw, rw, Q0,
-                                             M, nu, z1, z2, a, m, chi_far, -1))
+                                             M, nu, z1, z2, a, m, chi_far, -1,
+                                             M_imp, nu_imp, z1_imp, z2_imp,
+                                             alpha, m_imp, [-1]))
     Q = np.transpose(np.linalg.lstsq(AM, KN)[0])
     return Q
 
 
 def get_AMQ(N, z_ref, nw, zw, rw, Q, M, nu, z1, z2, m, chi_far):
     AM = np.zeros([M+nw+1, M+nw+1])
-    a = np.zeros([M, max(m)+1])
+    if M > 0:
+        a = np.zeros([M, max(m)+1])
     for ii in range(M):
         for ij in range(M):
             Q *= 0
@@ -165,9 +244,10 @@ def get_AMQ(N, z_ref, nw, zw, rw, Q, M, nu, z1, z2, m, chi_far):
             m = [0]*M
             C = 0
             W = 0
-            aa = Cauchy_integral(N, C, W, nw, zw, rw, Q,
-                                 M, nu, z1, z2,
-                                 a, m, chi_far, [ii, -1])
+            aa = Cauchy_integral_head(N, C, W, nw, zw, rw, Q,
+                                      M, nu, z1, z2,
+                                      a, m, chi_far, [ii, -1],
+                                      0, 0, 0, 0, 0, 0, 0)
             AM[ii, ij] = np.real(aa[0, 0])
         for ik in range(nw):
             zk = z_of_chi(1, nu[ii], z1[ii], z2[ii])
@@ -193,56 +273,101 @@ def get_AMQ(N, z_ref, nw, zw, rw, Q, M, nu, z1, z2, m, chi_far):
 
 
 def solve_lakes(Phi_lake, N, Phi0, z_ref, W, nw, zw, rw,
-                M, nu, z1, z2, m, chi_far):
+                M, nu, z1, z2, m, chi_far,
+                M_imp, nu_imp, z1_imp, z2_imp, m_imp):
     error = 1
     NIT = 0
     C = Phi0
-    a = np.zeros([M, max(m)+1], dtype=np.complex_)
-    a_old = np.zeros([M, max(m)+1], dtype=np.complex_)
-    a_solve = np.zeros([M, max(m)+1], dtype=np.complex_)
+    if M > 0:
+        a = np.zeros([M, max(m)+1], dtype=np.complex_)
+        a_old = np.zeros([M, max(m)+1], dtype=np.complex_)
+        a_solve = np.zeros([M, max(m)+1], dtype=np.complex_)
+    else:
+        a = np.zeros([1, max(m)+1], dtype=np.complex_)
+        a_old = np.zeros([1, max(m)+1], dtype=np.complex_)
+        a_solve = np.zeros([1, max(m)+1], dtype=np.complex_)
+    if M_imp > 0:
+        alpha = np.zeros([M_imp, max(m_imp)+1], dtype=np.complex_)
+        alpha_old = np.zeros([M_imp, max(m_imp)+1], dtype=np.complex_)
+        alpha_solve = np.zeros([M_imp, max(m_imp)+1], dtype=np.complex_)
+    else:
+        alpha = np.zeros([1, max(m_imp)+1], dtype=np.complex_)
+        alpha_old = np.zeros([1, max(m_imp)+1], dtype=np.complex_)
+        alpha_solve = np.zeros([1, max(m_imp)+1], dtype=np.complex_)
     Q = np.zeros([1, M+nw+1])
     Q_old = np.zeros([1, M+nw+1])
     AM = get_AMQ(N, z_ref, nw, zw, rw, Q, M, nu, z1, z2, m, chi_far)
-    while error > 1e-6 or not NIT < 200:
+    RUN = True
+    while RUN:
         Q = solve_Q_e(AM, Phi0, Phi_lake, N, C, z_ref, W, nw, zw, rw,
-                      M, nu, z1, z2, a, m, chi_far)
+                      M, nu, z1, z2, a, m, chi_far,
+                      M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp)
         C = Q[0, -1]
         for ii in range(M):
-            a_solve[ii, 0:(m[ii]+1)] = Cauchy_integral(N, C, W, nw, zw, rw, Q,
-                                                       M, nu, z1, z2, a, m,
-                                                       chi_far, [ii])
+            a_solve[ii, 0:(m[ii]+1)] = Cauchy_integral_head(N, C, W, nw, zw,
+                                                            rw, Q, M, nu, z1,
+                                                            z2, a, m,
+                                                            chi_far, [ii],
+                                                            M_imp, nu_imp,
+                                                            z1_imp, z2_imp,
+                                                            alpha, m_imp, [-1])
             a[ii, :] = - np.conj(a_solve[ii, :])
+        for ii in range(M_imp):
+            alpha_solve[ii, 0:(m_imp[ii]+1)] = Cauchy_integral_imp(N, C, W, nw,
+                                                                  zw, rw, Q, M,
+                                                                  nu, z1, z2,
+                                                                  a, m,
+                                                                  chi_far,
+                                                                  [-1], M_imp,
+                                                                  nu_imp,
+                                                                  z1_imp,
+                                                                  z2_imp,
+                                                                  alpha, m_imp,
+                                                                  [ii])
+            alpha[ii, :] = np.conj(alpha_solve[ii, :])
         error_a = np.max(abs(a-a_old))
+        error_alpha = np.max(abs(alpha-alpha_old))
         error_Q = np.max(abs(Q-Q_old))
-        if error_a > error_Q:
-            error = error_a
-        else:
-            error = error_Q
+        error = max([error_a, error_alpha, error_Q])
         NIT += 1
         a_old[:, :] = a[:, :]
+        alpha_old[:, :] = alpha[:, :]
         Q_old = Q
         print('')
         print('Iteration: ', NIT)
         print('')
         print('Error')
         print(error)
-        print('Error a')
-        print(error_a)
+        if M > 0:
+            print('Error a')
+            print(error_a)
+        if M_imp > 0:
+            print('Error alpha')
+            print(error_alpha)
         print('Error Q')
         print(error_Q)
         print('')
+        if error < 1e-06:
+            RUN = False
+        elif NIT > 400:
+            RUN = False
     print('--- Solver complete ---')
     print('')
     print('     Iterations:', NIT)
     print('  Maximum error:', error)
-    print('Maximum error a:', error_a)
+    if M > 0:
+        print('Maximum error a:', error_a)
+    if M_imp > 0:
+        print('Maximum error alpha:', error_alpha)
     print('Maximum error Q:', error_Q)
-    return a, Q, C
+    return a, Q, C, alpha
 
 
 def Contour_flow_net(Nx, xmin, xmax, Ny, ymin, ymax, lvs,
                      C, W, nw, zw, rw, Q,
-                     M, nu, z1, z2, a, m, chi_far, M_not, N):
+                     M, nu, z1, z2, a, m, chi_far, M_not,
+                     M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp, M_not_imp,
+                     N):
     print('')
     print('Plotting flow net')
     plt.rcParams['contour.negative_linestyle'] = 'solid'
@@ -254,7 +379,9 @@ def Contour_flow_net(Nx, xmin, xmax, Ny, ymin, ymax, lvs,
         for yy in range(Ny):
             z = complex(X[xx], Y[yy])
             Z[yy, xx] = Omega_total(z, C, W, nw, zw, rw, Q,
-                                    M, nu, z1, z2, a, m, chi_far, M_not)
+                                    M, nu, z1, z2, a, m, chi_far, M_not,
+                                    M_imp, nu_imp, z1_imp, z2_imp, alpha,
+                                    m_imp, M_not_imp)
     if M > 0:
         for jj in range(M):
             d_theta = 2 * cmath.pi / N
@@ -263,6 +390,16 @@ def Contour_flow_net(Nx, xmin, xmax, Ny, ymin, ymax, lvs,
                 theta = ii * d_theta
                 chi = cmath.exp(1j*theta)
                 z[ii] = z_of_chi(chi, nu[jj], z1[jj], z2[jj])
+            z[N] = z[0]
+            ax.plot(np.real(z), np.imag(z), color='black', linewidth=0.5)
+    if M_imp > 0:
+        for jj in range(M_imp):
+            d_theta = 2 * cmath.pi / N
+            z = [0]*(N+1)
+            for ii in range(N):
+                theta = ii * d_theta
+                chi = cmath.exp(1j*theta)
+                z[ii] = z_of_chi(chi, nu_imp[jj], z1_imp[jj], z2_imp[jj])
             z[N] = z[0]
             ax.plot(np.real(z), np.imag(z), color='black', linewidth=0.5)
     CS_real = ax.contour(X, Y, np.real(Z), levels=lvs,
@@ -277,7 +414,9 @@ def Contour_flow_net(Nx, xmin, xmax, Ny, ymin, ymax, lvs,
 
 def Contour_head(Nx, xmin, xmax, Ny, ymin, ymax, lvs,
                  C, W, nw, zw, rw, Q,
-                 M, nu, z1, z2, a, m, chi_far, M_not, N, k, H):
+                 M, nu, z1, z2, a, m, chi_far, M_not,
+                 M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp, M_not_imp,
+                 N, k, H):
     print('')
     print('Plotting head contour')
     plt.rcParams['contour.negative_linestyle'] = 'solid'
@@ -289,7 +428,9 @@ def Contour_head(Nx, xmin, xmax, Ny, ymin, ymax, lvs,
         for yy in range(Ny):
             z = complex(X[xx], Y[yy])
             Omega = Omega_total(z, C, W, nw, zw, rw, Q,
-                                M, nu, z1, z2, a, m, chi_far, M_not)
+                                M, nu, z1, z2, a, m, chi_far, M_not,
+                                M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp,
+                                M_not_imp)
             Z[yy, xx] = fi_from_Phi(np.real(Omega), k, H)
     if M > 0:
         for jj in range(M):
@@ -301,29 +442,47 @@ def Contour_head(Nx, xmin, xmax, Ny, ymin, ymax, lvs,
                 z[ii] = z_of_chi(chi, nu[jj], z1[jj], z2[jj])
             z[N] = z[0]
             ax.plot(np.real(z), np.imag(z), color='black', linewidth=0.5)
+    if M_imp > 0:
+        for jj in range(M_imp):
+            d_theta = 2 * cmath.pi / N
+            z = [0]*(N+1)
+            for ii in range(N):
+                theta = ii * d_theta
+                chi = cmath.exp(1j*theta)
+                z[ii] = z_of_chi(chi, nu_imp[jj], z1_imp[jj], z2_imp[jj])
+            z[N] = z[0]
+            ax.plot(np.real(z), np.imag(z), color='black', linewidth=0.5)
     CS = ax.contour(X, Y, Z, levels=lvs, linewidths=0.5)
     ax.clabel(CS, inline=1, fontsize=10)
     ax.set_title('Hydraulic Head')
 
 
 def check_heads(C, W, nw, zw, rw, Q, M, nu, z1, z2,
-                a, m, chi_far, M_not, N, k, H, fi, z_ref, fi_ref):
+                a, m, chi_far, M_not,
+                M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp, M_not_imp,
+                N, k, H, fi, z_ref, fi_ref):
     Phi = np.real(Omega_total(z_ref, C, W, nw, zw, rw, Q, M, nu,
-                              z1, z2, a, m, chi_far, -1))
+                              z1, z2, a, m, chi_far, M_not,
+                              M_imp, nu_imp, z1_imp, z2_imp, alpha,
+                              m_imp, M_not_imp))
     fi1 = fi_from_Phi(Phi, k, H)
     fi_array = [0]*(M+nw)
     d_fi = [0]*(M+nw)
     for ii in range(M):
         z = z_of_chi(1, nu[ii], z1[ii], z2[ii])
         Omega = Omega_total(z, C, W, nw, zw, rw, Q,
-                            M, nu, z1, z2, a, m, chi_far, M_not)
+                            M, nu, z1, z2, a, m, chi_far, M_not,
+                            M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp,
+                            M_not_imp)
         Phi = np.real(Omega)
         fi_M = fi_from_Phi(Phi, k, H)
         fi_array[ii] = fi_M
     for ii in range(nw):
         z = zw[ii]+rw[ii]*1.0001
         Omega = Omega_total(z, C, W, nw, zw, rw, Q,
-                            M, nu, z1, z2, a, m, chi_far, M_not)
+                            M, nu, z1, z2, a, m, chi_far, M_not,
+                            M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp,
+                            M_not_imp)
         Phi = np.real(Omega)
         fi_nw = fi_from_Phi(Phi, k, H)
         fi_array[M+ii] = fi_nw
@@ -332,7 +491,7 @@ def check_heads(C, W, nw, zw, rw, Q, M, nu, z1, z2,
     print('')
     print('--- Head check ---')
     print('')
-    print('Differance in head at:')
+    print('Differance in head at singel point on:')
     print('Reference is:', fi1 - fi_ref)
     for ii in range(M):
         print('    M =', ii, 'is:', d_fi[ii])
