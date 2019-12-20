@@ -107,8 +107,11 @@ def z_of_chi(chi, nu, z1, z2):
         z1 = z1
         z2 = z2
         nu = nu
-    Z = .5 * (chi / nu + nu / chi)
-    z = .5 * (Z * (z2 - z1) + z2 + z1)
+    if nu == 0:
+        z = .5*(chi*(z2 - z1) + z2 + z1)
+    else:
+        Z = .5 * (chi / nu + nu / chi)
+        z = .5 * (Z * (z2 - z1) + z2 + z1)
     return z
 
 
@@ -121,14 +124,17 @@ def chi_of_z(z, nu, z1, z2):
         z1 = z1
         z2 = z2
         nu = nu
-    Z = (2 * z - z1 - z2) / (z2 - z1)
-    Zm = Z - complex(1, 0)
-    Zp = Z + complex(1, 0)
-    if np.imag(Zm) == 0:
-        Zm = np.real(Zm)
-    elif np.imag(Zp) == 0:
-        Zp = np.real(Zp)
-    chi = nu * (Z + cmath.sqrt(Zm) * cmath.sqrt(Zp))
+    if nu == 0:
+        chi = (2*z - z1 - z2) / (z2 - z1)
+    else:
+        Z = (2 * z - z1 - z2) / (z2 - z1)
+        Zm = Z - complex(1, 0)
+        Zp = Z + complex(1, 0)
+        if np.imag(Zm) == 0:
+            Zm = np.real(Zm)
+        elif np.imag(Zp) == 0:
+            Zp = np.real(Zp)
+        chi = nu * (Z + cmath.sqrt(Zm) * cmath.sqrt(Zp))
     return chi
 
 
@@ -191,7 +197,6 @@ def Cauchy_integral_imp(N, C, W, nw, zw, rw, Q,
     while RUN:
         if np.abs(np.diff(differ[0, jj:(jj+2)])) > cond:
             differ[0, jj+1] = (differ[0, jj] + differ[0, jj+2])/2
-            print(jj)
         jj += 1
         if jj == N:
             RUN = False
@@ -207,25 +212,26 @@ def Cauchy_integral_imp(N, C, W, nw, zw, rw, Q,
     return b
 
 
-def solve_Q_e(AM, Phi0, Phi_lake, N, C, z_ref, W, nw, zw, rw,
+def solve_Q_e(AM, Phi0, Phi_lake, N, C, z_ref, W, nw, zw, rw, Q,
               M, nu, z1, z2, a, m, chi_far,
               M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp):
     KN = np.zeros([M+nw+1, 1])
     Q0 = np.zeros([1, M+nw])
     C = 0
+    W0 = W
     for ii in range(M):
-        aa = Cauchy_integral_head(N, C, W, nw, zw, rw, Q0,
+        aa = Cauchy_integral_head(N, C, W0, nw, zw, rw, Q0,
                                   M, nu, z1, z2,
                                   a, m, chi_far, [ii, -1],
                                   M_imp, nu_imp, z1_imp, z2_imp, alpha,
                                   m_imp, [-1])
         KN[ii, 0] = Phi_lake[ii] - np.real(aa[0, 0])
     for jj in range(nw):
-        aa = Omega_total(zw[jj]+rw[jj]*1.0001, C, W, nw, zw, rw, Q0,
+        aa = Omega_total(zw[jj]+rw[jj]*1.0001, C, W0, nw, zw, rw, Q0,
                          M, nu, z1, z2, a, m, chi_far, -1,
                          M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp, [-1])
         KN[M+jj, 0] = Phi_lake[M+jj] - np.real(aa)
-    KN[M+nw, 0] = Phi0 - np.real(Omega_total(z_ref, 0, W, nw, zw, rw, Q0,
+    KN[M+nw, 0] = Phi0 - np.real(Omega_total(z_ref, 0, W0, nw, zw, rw, Q0,
                                              M, nu, z1, z2, a, m, chi_far, -1,
                                              M_imp, nu_imp, z1_imp, z2_imp,
                                              alpha, m_imp, [-1]))
@@ -239,12 +245,12 @@ def get_AMQ(N, z_ref, nw, zw, rw, Q, M, nu, z1, z2, m, chi_far):
         a = np.zeros([M, max(m)+1])
     for ii in range(M):
         for ij in range(M):
-            Q *= 0
-            Q[0, ij] = 1
+            Q0 = 0*Q
+            Q0[0, ij] = 1
             m = [0]*M
             C = 0
-            W = 0
-            aa = Cauchy_integral_head(N, C, W, nw, zw, rw, Q,
+            W0 = 0
+            aa = Cauchy_integral_head(N, C, W0, nw, zw, rw, Q0,
                                       M, nu, z1, z2,
                                       a, m, chi_far, [ii, -1],
                                       0, 0, 0, 0, 0, 0, 0)
@@ -299,7 +305,7 @@ def solve_lakes(Phi_lake, N, Phi0, z_ref, W, nw, zw, rw,
     AM = get_AMQ(N, z_ref, nw, zw, rw, Q, M, nu, z1, z2, m, chi_far)
     RUN = True
     while RUN:
-        Q = solve_Q_e(AM, Phi0, Phi_lake, N, C, z_ref, W, nw, zw, rw,
+        Q = solve_Q_e(AM, Phi0, Phi_lake, N, C, z_ref, W, nw, zw, rw, Q,
                       M, nu, z1, z2, a, m, chi_far,
                       M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp)
         C = Q[0, -1]
@@ -351,15 +357,15 @@ def solve_lakes(Phi_lake, N, Phi0, z_ref, W, nw, zw, rw,
             RUN = False
         elif NIT > 400:
             RUN = False
-    print('--- Solver complete ---')
+    print('--------- Solver complete ---------')
     print('')
-    print('     Iterations:', NIT)
-    print('  Maximum error:', error)
+    print('         Iterations:', NIT)
+    print('      Maximum error:', error)
     if M > 0:
-        print('Maximum error a:', error_a)
+        print('    Maximum error a:', error_a)
     if M_imp > 0:
         print('Maximum error alpha:', error_alpha)
-    print('Maximum error Q:', error_Q)
+    print('    Maximum error Q:', error_Q)
     return a, Q, C, alpha
 
 
@@ -457,17 +463,24 @@ def Contour_head(Nx, xmin, xmax, Ny, ymin, ymax, lvs,
     ax.set_title('Hydraulic Head')
 
 
-def check_heads(C, W, nw, zw, rw, Q, M, nu, z1, z2,
+def check_heads(C, W, nw_old, zw, rw, Q, M, nu, z1, z2,
                 a, m, chi_far, M_not,
                 M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp, M_not_imp,
                 N, k, H, fi, z_ref, fi_ref):
+    nw = 0
     Phi = np.real(Omega_total(z_ref, C, W, nw, zw, rw, Q, M, nu,
                               z1, z2, a, m, chi_far, M_not,
                               M_imp, nu_imp, z1_imp, z2_imp, alpha,
                               m_imp, M_not_imp))
     fi1 = fi_from_Phi(Phi, k, H)
-    fi_array = [0]*(M+nw)
-    d_fi = [0]*(M+nw)
+    fi_array = [0]*(M)
+    fi_array2 = [0]*(M)
+    fi_array3 = [0]*(M)
+    fi_array4 = [0]*(M)
+    d_fi = [0]*(M)
+    d_fi2 = [0]*(M)
+    d_fi3 = [0]*(M)
+    d_fi4 = [0]*(M)
     for ii in range(M):
         z = z_of_chi(1, nu[ii], z1[ii], z2[ii])
         Omega = Omega_total(z, C, W, nw, zw, rw, Q,
@@ -475,26 +488,55 @@ def check_heads(C, W, nw, zw, rw, Q, M, nu, z1, z2,
                             M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp,
                             M_not_imp)
         Phi = np.real(Omega)
-        fi_M = fi_from_Phi(Phi, k, H)
-        fi_array[ii] = fi_M
-    for ii in range(nw):
-        z = zw[ii]+rw[ii]*1.0001
+        fi_M1 = fi_from_Phi(Phi, k, H)
+        z = z_of_chi(1j, nu[ii], z1[ii], z2[ii])
         Omega = Omega_total(z, C, W, nw, zw, rw, Q,
                             M, nu, z1, z2, a, m, chi_far, M_not,
                             M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp,
                             M_not_imp)
         Phi = np.real(Omega)
-        fi_nw = fi_from_Phi(Phi, k, H)
-        fi_array[M+ii] = fi_nw
-    for ii in range(M+nw):
-        d_fi[ii] = fi[ii] - fi_array[ii]
-    print('')
-    print('--- Head check ---')
-    print('')
-    print('Differance in head at singel point on:')
-    print('Reference is:', fi1 - fi_ref)
+        fi_M2 = fi_from_Phi(Phi, k, H)
+        z = z_of_chi(-1, nu[ii], z1[ii], z2[ii])
+        Omega = Omega_total(z, C, W, nw, zw, rw, Q,
+                            M, nu, z1, z2, a, m, chi_far, M_not,
+                            M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp,
+                            M_not_imp)
+        Phi = np.real(Omega)
+        fi_M3 = fi_from_Phi(Phi, k, H)
+        z = z_of_chi(-1j, nu[ii], z1[ii], z2[ii])
+        Omega = Omega_total(z, C, W, nw, zw, rw, Q,
+                            M, nu, z1, z2, a, m, chi_far, M_not,
+                            M_imp, nu_imp, z1_imp, z2_imp, alpha, m_imp,
+                            M_not_imp)
+        Phi = np.real(Omega)
+        fi_M4 = fi_from_Phi(Phi, k, H)
+        fi_array[ii] = fi_M1
+        fi_array2[ii] = fi_M2
+        fi_array3[ii] = fi_M3
+        fi_array4[ii] = fi_M4
     for ii in range(M):
-        print('    M =', ii, 'is:', d_fi[ii])
-    for ii in range(nw):
-        print('   nw =', ii, 'is:', d_fi[M+ii])
+        d_fi[ii] = fi[ii] - fi_array[ii]
+        d_fi2[ii] = fi[ii] - fi_array2[ii]
+        d_fi3[ii] = fi[ii] - fi_array3[ii]
+        d_fi4[ii] = fi[ii] - fi_array4[ii]
+    d_fi_all = d_fi + d_fi2 + d_fi3 + d_fi4
+    d_max = np.max(np.abs(d_fi_all))
+    print('')
+    print('--------- Head check ---------')
+    print('')
+    print('Differance in head at points on elemt')
+    print('      Reference is:', fi1 - fi_ref)
+    for ii in range(M-nw_old):
+        print('Lake ', ii, '(0 , 1) is:', d_fi[ii])
+        print('Lake ', ii, '(1 , 0) is:', d_fi2[ii])
+        print('Lake ', ii, '(0 ,-1) is:', d_fi3[ii])
+        print('Lake ', ii, '(-1, 0) is:', d_fi4[ii])
+    for ii in range(nw_old):
+        print('Well ', ii, '(0 , 1) is:', d_fi[M-nw_old+ii])
+        print('Well ', ii, '(1 , 0) is:', d_fi2[M-nw_old+ii])
+        print('Well ', ii, '(0 ,-1) is:', d_fi3[M-nw_old+ii])
+        print('Well ', ii, '(-1, 0) is:', d_fi4[M-nw_old+ii])
+    print('')
+    print('The maximum difference among the checked')
+    print('         points is:', d_max)
     return d_fi
