@@ -2,7 +2,7 @@
 An AEM model program with built-in functions for: head specified boundaries, head specified wells and uniform flow.
 
 **Author: Erik Toller**  
-Current version: 0.1 (2019-08-21)  
+Current version: 0.3 (2019-12-20)  
 Master script: `run_aem.py`
 
 ## Functions
